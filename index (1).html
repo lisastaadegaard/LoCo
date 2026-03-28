@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Flood — Long COVID</title>
+<style>
+  /* ============================================================
+     SCROLLING POST FLOOD
+     Replace the POSTS array below with your real posts.
+     Each post needs: plat, user, body, meta, av, avc
+     ============================================================ */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0f;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    text-align: center;
+    padding: 3rem 1rem 1.5rem;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ── The flood container ── */
+  .flood {
+    display: flex;
+    gap: 10px;
+    padding: 0 10px 3rem;
+    overflow: hidden;
+    /* Change height to make the section taller or shorter */
+    height: 80vh;
+  }
+
+  /* ── Each column ── */
+  .col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ── The scrolling stream inside each column ── */
+  .stream {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: scrollUp linear infinite;
+  }
+
+  @keyframes scrollUp {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+
+  /* ── Individual post card ── */
+  .card {
+    background: #161622;
+    border: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 12px;
+    flex-shrink: 0;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  /* Coloured avatar circle */
+  .avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .card-user {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .card-plat {
+    font-size: 9px;
+    color: rgba(255,255,255,0.3);
+    font-family: 'Courier New', monospace;
+    text-transform: lowercase;
+  }
+
+  .card-body {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.55;
+  }
+
+  .card-meta {
+    margin-top: 8px;
+    font-size: 9px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'Courier New', monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="section-label">
+  What it looks like to try to google your way out of a chronic illness
+</div>
+
+<div class="flood" id="flood"></div>
+
+<script>
+  /* ============================================================
+     YOUR POSTS — edit these!
+
+     Each post is an object with these fields:
+       plat  — platform name shown below username (e.g. "reddit", "facebook")
+       user  — display name or handle (e.g. "u/throwaway_hauler", "Sarah M.")
+       body  — the post text
+       meta  — small line at the bottom (likes, group name, timestamp, etc.)
+       av    — 1–2 letters shown in the avatar circle
+       avc   — avatar background colour (hex code)
+
+     Platform colour suggestions:
+       Reddit:    #ff4500
+       Facebook:  #1877f2
+       Discord:   #5865f2
+       Twitter/X: #000000
+       WhatsApp:  #25d366
+
+     To add more posts: copy one of the objects below,
+     paste it after the last one, and add a comma between them.
+     ============================================================ */
+
+  const POSTS = [
+
+    /* ── REDDIT PLACEHOLDER ── */
+    {
+      plat: "reddit",
+      user: "u/your_username_here",
+      body: "Replace this with a real Reddit post. Paste the text of something you found, or something you wrote yourself.",
+      meta: "r/subreddit_name · 000 upvotes",
+      av: "R",
+      avc: "#ff4500"
+    },
+
+    /* ── FACEBOOK PLACEHOLDER ── */
+    {
+      plat: "facebook",
+      user: "Name Here",
+      body: "Replace this with a real Facebook post from a long COVID group. Paste the text here.",
+      meta: "Long COVID Support Group · 00 comments",
+      av: "F",
+      avc: "#1877f2"
+    },
+
+    /* ── DISCORD PLACEHOLDER ── */
+    {
+      plat: "discord",
+      user: "username#0000",
+      body: "Replace this with a real Discord message. These are often shorter and more raw.",
+      meta: "#channel-name · 00:00am",
+      av: "D",
+      avc: "#5865f2"
+    },
+
+    /* ── TWITTER / X PLACEHOLDER ── */
+    {
+      plat: "twitter / x",
+      user: "@handle_here",
+      body: "Replace this with a real tweet or X post. Keep it under 280 characters if you want it to feel authentic.",
+      meta: "000 likes",
+      av: "T",
+      avc: "#000000"
+    },
+
+    /* ── WHATSAPP PLACEHOLDER ── */
+    {
+      plat: "whatsapp",
+      user: "Name (group chat)",
+      body: "Replace this with a real WhatsApp message from a support group. These often feel more personal and private.",
+      meta: "Long COVID Friends · 00:00",
+      av: "W",
+      avc: "#25d366"
+    },
+
+    /* ── Add more posts below — copy the block above and paste here ──
+    {
+      plat: "reddit",
+      user: "u/another_user",
+      body: "Another post goes here.",
+      meta: "r/covidlonghaulers · 000 upvotes",
+      av: "R",
+      avc: "#ff4500"
+    },
+    ── */
+
+  ];
+
+  /* ============================================================
+     SETTINGS — tweak these to change the feel
+
+     NUM_COLS   — how many columns (3 is good on desktop, try 2 for mobile)
+     SPEED_BASE — seconds for one full loop. Lower = faster.
+                  Each column gets a slightly different speed automatically.
+     ============================================================ */
+
+  const NUM_COLS   = 4;
+  const SPEED_BASE = 18; /* seconds */
+
+  /* ── Build the columns ── */
+  const flood = document.getElementById('flood');
+
+  for (let c = 0; c < NUM_COLS; c++) {
+
+    /* Shuffle posts differently for each column */
+    const shuffled = [...POSTS].sort(() => Math.random() - 0.5);
+
+    /* Double the list so the loop is seamless */
+    const doubled = [...shuffled, ...shuffled];
+
+    const col = document.createElement('div');
+    col.className = 'col';
+
+    const stream = document.createElement('div');
+    stream.className = 'stream';
+
+    /* Each column scrolls at a slightly different speed */
+    const speed = SPEED_BASE + c * 4;
+    stream.style.animationDuration = speed + 's';
+
+    /* Alternate columns start mid-way so they're offset */
+    if (c % 2 === 1) {
+      stream.style.animationDelay = '-' + (speed / 2) + 's';
+    }
+
+    doubled.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-head">
+          <div class="avatar" style="background:${p.avc}">${p.av}</div>
+          <div>
+            <div class="card-user">${p.user}</div>
+            <div class="card-plat">${p.plat}</div>
+          </div>
+        </div>
+        <div class="card-body">${p.body}</div>
+        <div class="card-meta">${p.meta}</div>
+      `;
+      stream.appendChild(card);
+    });
+
+    col.appendChild(stream);
+    flood.appendChild(col);
+  }
+</script>
+</body>
+</html>
