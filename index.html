@@ -5,12 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Flood — Long COVID</title>
 <style>
-  /* ============================================================
-     SCROLLING POST FLOOD
-     Replace the POSTS array below with your real posts.
-     Each post needs: plat, user, body, meta, av, avc
-     ============================================================ */
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -19,7 +13,6 @@
     overflow-x: hidden;
   }
 
-  /* ── Section label ── */
   .section-label {
     text-align: center;
     padding: 3rem 1rem 1.5rem;
@@ -30,30 +23,20 @@
     font-family: 'Courier New', monospace;
   }
 
-  /* ── The flood container ── */
   .flood {
     display: flex;
     gap: 10px;
     padding: 0 10px 3rem;
     overflow: hidden;
-    /* Change height to make the section taller or shorter */
     height: 80vh;
   }
 
-  /* ── Each column ── */
-  .col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
 
-  /* ── The scrolling stream inside each column ── */
   .stream {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     animation: scrollUp linear infinite;
   }
 
@@ -62,60 +45,308 @@
     to   { transform: translateY(-50%); }
   }
 
-  /* ── Individual post card ── */
-  .card {
-    background: #161622;
-    border: 0.5px solid rgba(255,255,255,0.07);
+  /* ================================================
+     WHATSAPP
+     ================================================ */
+  .card-whatsapp {
+    background: #111b21;
     border-radius: 8px;
-    padding: 12px;
-    flex-shrink: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
   }
-
-  .card-head {
+  .wa-header {
+    background: #202c33;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
   }
-
-  /* Coloured avatar circle */
-  .avatar {
-    width: 24px;
-    height: 24px;
+  .wa-avatar {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    background: #2a3942;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wa-avatar svg { width: 18px; height: 18px; }
+  .wa-group-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e9edef;
+  }
+  .wa-group-sub {
+    font-size: 11px;
+    color: #8696a0;
+  }
+  .wa-body {
+    padding: 8px 12px 10px;
+  }
+  .wa-bubble {
+    background: #202c33;
+    border-radius: 0 8px 8px 8px;
+    padding: 7px 10px 5px;
+    max-width: 90%;
+    display: inline-block;
+    position: relative;
+  }
+  .wa-bubble::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -6px;
+    border: 6px solid transparent;
+    border-right-color: #202c33;
+    border-top-color: #202c33;
+  }
+  .wa-bubble-text {
+    font-size: 13px;
+    color: #e9edef;
+    line-height: 1.5;
+  }
+  .wa-bubble-time {
+    font-size: 10px;
+    color: #8696a0;
+    text-align: right;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+  }
+  /* double tick */
+  .wa-tick { color: #53bdeb; font-size: 11px; }
+
+  /* ================================================
+     REDDIT
+     ================================================ */
+  .card-reddit {
+    background: #1a1a1b;
+    border: 1px solid #343536;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+  .reddit-sub {
+    background: #1a1a1b;
+    padding: 8px 10px 0;
+    font-size: 11px;
+    color: #818384;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .reddit-sub-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff4500;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 9px;
     font-weight: 700;
-    flex-shrink: 0;
     color: #fff;
+    flex-shrink: 0;
   }
-
-  .card-user {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.8);
+  .reddit-sub-name { color: #d7dadc; font-weight: 700; }
+  .reddit-body { padding: 6px 10px 8px; }
+  .reddit-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #d7dadc;
+    line-height: 1.4;
+    margin-bottom: 5px;
   }
-
-  .card-plat {
-    font-size: 9px;
-    color: rgba(255,255,255,0.3);
-    font-family: 'Courier New', monospace;
-    text-transform: lowercase;
-  }
-
-  .card-body {
+  .reddit-text {
     font-size: 12px;
-    color: rgba(255,255,255,0.5);
+    color: #818384;
+    line-height: 1.5;
+  }
+  .reddit-footer {
+    padding: 6px 10px 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid #343536;
+  }
+  .reddit-vote {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #272729;
+    border-radius: 2px;
+    padding: 3px 6px;
+  }
+  .reddit-arrow { color: #818384; font-size: 14px; }
+  .reddit-arrow.up { color: #ff4500; }
+  .reddit-score { font-size: 11px; font-weight: 700; color: #d7dadc; }
+  .reddit-comments {
+    font-size: 11px;
+    color: #818384;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ================================================
+     FACEBOOK
+     ================================================ */
+  .card-facebook {
+    background: #242526;
+    border-radius: 8px;
+    font-family: Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    border: 1px solid #3a3b3c;
+  }
+  .fb-group-bar {
+    padding: 10px 12px 0;
+    font-size: 12px;
+    color: #b0b3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fb-group-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #1877f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .fb-group-name { font-weight: 600; color: #e4e6eb; font-size: 13px; }
+  .fb-group-sub { font-size: 11px; color: #b0b3b8; }
+  .fb-body {
+    padding: 8px 12px 10px;
+    font-size: 13px;
+    color: #e4e6eb;
     line-height: 1.55;
   }
+  .fb-footer {
+    border-top: 1px solid #3a3b3c;
+    padding: 6px 12px;
+    display: flex;
+    gap: 4px;
+  }
+  .fb-reaction {
+    font-size: 10px;
+    color: #b0b3b8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .fb-react-icons { font-size: 13px; }
+  .fb-comment-btn {
+    margin-left: auto;
+    font-size: 11px;
+    color: #b0b3b8;
+    font-weight: 600;
+  }
 
-  .card-meta {
-    margin-top: 8px;
-    font-size: 9px;
-    color: rgba(255,255,255,0.2);
-    font-family: 'Courier New', monospace;
+  /* ================================================
+     DISCORD
+     ================================================ */
+  .card-discord {
+    background: #313338;
+    border-radius: 4px;
+    font-family: 'gg sans', 'Noto Sans', Whitney, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .discord-channel {
+    background: #2b2d31;
+    padding: 7px 10px;
+    font-size: 11px;
+    color: #80848e;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .discord-hash { color: #5865f2; font-weight: 700; font-size: 14px; }
+  .discord-channel-name { color: #b5bac1; font-weight: 600; }
+  .discord-msg {
+    padding: 8px 10px;
+    display: flex;
+    gap: 10px;
+  }
+  .discord-av {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #5865f2;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 1px;
+  }
+  .discord-right {}
+  .discord-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 3px;
+  }
+  .discord-user { font-size: 13px; font-weight: 600; color: #c9cdfb; }
+  .discord-time { font-size: 10px; color: #80848e; }
+  .discord-text { font-size: 13px; color: #dbdee1; line-height: 1.5; }
+
+  /* ================================================
+     TWITTER / X
+     ================================================ */
+  .card-twitter {
+    background: #16181c;
+    border: 1px solid #2f3336;
+    border-radius: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+    padding: 12px 14px;
+  }
+  .tw-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .tw-av {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #333;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* X logo */
+  .tw-av svg { width: 18px; height: 18px; fill: #fff; }
+  .tw-anon { font-size: 13px; color: #71767b; font-style: italic; }
+  .tw-body {
+    font-size: 14px;
+    color: #e7e9ea;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .tw-footer {
+    display: flex;
+    gap: 16px;
+    border-top: 1px solid #2f3336;
+    padding-top: 8px;
+  }
+  .tw-action {
+    font-size: 12px;
+    color: #71767b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 </style>
 </head>
@@ -129,144 +360,234 @@
 
 <script>
   /* ============================================================
-     YOUR POSTS — edit these!
+     YOUR POSTS
 
-     Each post is an object with these fields:
-       plat  — platform name shown below username (e.g. "reddit", "facebook")
-       user  — display name or handle (e.g. "u/throwaway_hauler", "Sarah M.")
-       body  — the post text
-       meta  — small line at the bottom (likes, group name, timestamp, etc.)
-       av    — 1–2 letters shown in the avatar circle
-       avc   — avatar background colour (hex code)
+     type must be one of: "whatsapp" | "reddit" | "facebook" | "discord" | "twitter"
 
-     Platform colour suggestions:
-       Reddit:    #ff4500
-       Facebook:  #1877f2
-       Discord:   #5865f2
-       Twitter/X: #000000
-       WhatsApp:  #25d366
+     WHATSAPP fields:
+       group     — group chat name shown at top
+       body      — message text
+       time      — timestamp e.g. "09:14"
 
-     To add more posts: copy one of the objects below,
-     paste it after the last one, and add a comma between them.
-     ============================================================ */
+     REDDIT fields:
+       sub       — subreddit e.g. "covidlonghaulers"
+       title     — post title (bold)
+       body      — post body text (can be empty "")
+       score     — upvote count e.g. "1.2k"
+       comments  — comment count e.g. "234"
+
+     FACEBOOK fields:
+       group     — group name
+       body      — post text
+       reactions — reaction count e.g. "847"
+       comments  — comment count e.g. "132 comments"
+
+     DISCORD fields:
+       channel   — channel name without # e.g. "long-haulers-general"
+       initials  — 1-2 letters for avatar e.g. "LC"
+       time      — e.g. "Today at 3:47 AM"
+       body      — message text
+
+     TWITTER fields:
+       body      — tweet text
+       likes     — like count e.g. "2.3K"
+       replies   — reply count e.g. "84"
+       reposts   — repost count e.g. "341"
+  ============================================================ */
 
   const POSTS = [
 
+    /* ── WHATSAPP PLACEHOLDER ── */
+    {
+      type: "whatsapp",
+      group: "Long COVID Support",
+      body: "Replace this with your WhatsApp message. Paste the text of a real message here. You can write multiple sentences.",
+      time: "09:14"
+    },
+
     /* ── REDDIT PLACEHOLDER ── */
     {
-      plat: "reddit",
-      user: "u/your_username_here",
-      body: "Replace this with a real Reddit post. Paste the text of something you found, or something you wrote yourself.",
-      meta: "r/subreddit_name · 000 upvotes",
-      av: "R",
-      avc: "#ff4500"
+      type: "reddit",
+      sub: "covidlonghaulers",
+      title: "Replace this with your Reddit post title",
+      body: "Replace this with the body of the Reddit post. Can be left empty if it was a title-only post.",
+      score: "000",
+      comments: "000"
     },
 
     /* ── FACEBOOK PLACEHOLDER ── */
     {
-      plat: "facebook",
-      user: "Name Here",
-      body: "Replace this with a real Facebook post from a long COVID group. Paste the text here.",
-      meta: "Long COVID Support Group · 00 comments",
-      av: "F",
-      avc: "#1877f2"
+      type: "facebook",
+      group: "Long COVID Warriors",
+      body: "Replace this with your Facebook post text. These tend to be longer and more personal. Paste the full text here.",
+      reactions: "000",
+      comments: "000 comments"
     },
 
     /* ── DISCORD PLACEHOLDER ── */
     {
-      plat: "discord",
-      user: "username#0000",
-      body: "Replace this with a real Discord message. These are often shorter and more raw.",
-      meta: "#channel-name · 00:00am",
-      av: "D",
-      avc: "#5865f2"
+      type: "discord",
+      channel: "long-haulers-general",
+      initials: "LC",
+      time: "Today at 3:47 AM",
+      body: "Replace this with your Discord message. These are often shorter and more conversational."
     },
 
-    /* ── TWITTER / X PLACEHOLDER ── */
+    /* ── TWITTER PLACEHOLDER ── */
     {
-      plat: "twitter / x",
-      user: "@handle_here",
-      body: "Replace this with a real tweet or X post. Keep it under 280 characters if you want it to feel authentic.",
-      meta: "000 likes",
-      av: "T",
-      avc: "#000000"
+      type: "twitter",
+      body: "Replace this with your tweet or X post. Keep it under 280 characters for authenticity.",
+      likes: "000",
+      replies: "000",
+      reposts: "000"
     },
 
-    /* ── WHATSAPP PLACEHOLDER ── */
-    {
-      plat: "whatsapp",
-      user: "Name (group chat)",
-      body: "Replace this with a real WhatsApp message from a support group. These often feel more personal and private.",
-      meta: "Long COVID Friends · 00:00",
-      av: "W",
-      avc: "#25d366"
-    },
-
-    /* ── Add more posts below — copy the block above and paste here ──
-    {
-      plat: "reddit",
-      user: "u/another_user",
-      body: "Another post goes here.",
-      meta: "r/covidlonghaulers · 000 upvotes",
-      av: "R",
-      avc: "#ff4500"
-    },
-    ── */
+    /* ── Add more posts below. Copy any block above, paste here, add a comma. ── */
 
   ];
 
-  /* ============================================================
-     SETTINGS — tweak these to change the feel
-
-     NUM_COLS   — how many columns (3 is good on desktop, try 2 for mobile)
-     SPEED_BASE — seconds for one full loop. Lower = faster.
-                  Each column gets a slightly different speed automatically.
-     ============================================================ */
-
+  /* ── SETTINGS ── */
   const NUM_COLS   = 4;
-  const SPEED_BASE = 18; /* seconds */
+  const SPEED_BASE = 18;
 
-  /* ── Build the columns ── */
+  /* ── Render functions ── */
+
+  function renderWhatsapp(p) {
+    return `<div class="card-whatsapp">
+      <div class="wa-header">
+        <div class="wa-avatar">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25d366"/>
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.406A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#25d366" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="wa-group-name">${p.group}</div>
+          <div class="wa-group-sub">Group · tap for info</div>
+        </div>
+      </div>
+      <div class="wa-body">
+        <div class="wa-bubble">
+          <div class="wa-bubble-text">${p.body}</div>
+          <div class="wa-bubble-time">${p.time} <span class="wa-tick">✓✓</span></div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderReddit(p) {
+    return `<div class="card-reddit">
+      <div class="reddit-sub">
+        <div class="reddit-sub-dot">r</div>
+        <span>r/<span class="reddit-sub-name">${p.sub}</span></span>
+      </div>
+      <div class="reddit-body">
+        <div class="reddit-title">${p.title}</div>
+        ${p.body ? `<div class="reddit-text">${p.body}</div>` : ''}
+      </div>
+      <div class="reddit-footer">
+        <div class="reddit-vote">
+          <span class="reddit-arrow up">▲</span>
+          <span class="reddit-score">${p.score}</span>
+          <span class="reddit-arrow">▼</span>
+        </div>
+        <div class="reddit-comments">
+          <span>💬</span> ${p.comments} comments
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderFacebook(p) {
+    return `<div class="card-facebook">
+      <div class="fb-group-bar">
+        <div class="fb-group-icon">f</div>
+        <div>
+          <div class="fb-group-name">${p.group}</div>
+          <div class="fb-group-sub">Public group</div>
+        </div>
+      </div>
+      <div class="fb-body">${p.body}</div>
+      <div class="fb-footer">
+        <div class="fb-reaction">
+          <span class="fb-react-icons">❤️👍😢</span>
+          ${p.reactions}
+        </div>
+        <div class="fb-comment-btn">${p.comments}</div>
+      </div>
+    </div>`;
+  }
+
+  function renderDiscord(p) {
+    return `<div class="card-discord">
+      <div class="discord-channel">
+        <span class="discord-hash">#</span>
+        <span class="discord-channel-name">${p.channel}</span>
+      </div>
+      <div class="discord-msg">
+        <div class="discord-av">${p.initials}</div>
+        <div class="discord-right">
+          <div class="discord-meta">
+            <span class="discord-user">Anonymous</span>
+            <span class="discord-time">${p.time}</span>
+          </div>
+          <div class="discord-text">${p.body}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderTwitter(p) {
+    return `<div class="card-twitter">
+      <div class="tw-head">
+        <div class="tw-av">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </div>
+        <span class="tw-anon">anonymous</span>
+      </div>
+      <div class="tw-body">${p.body}</div>
+      <div class="tw-footer">
+        <span class="tw-action">💬 ${p.replies}</span>
+        <span class="tw-action">🔁 ${p.reposts}</span>
+        <span class="tw-action">♡ ${p.likes}</span>
+      </div>
+    </div>`;
+  }
+
+  function renderPost(p) {
+    switch(p.type) {
+      case 'whatsapp': return renderWhatsapp(p);
+      case 'reddit':   return renderReddit(p);
+      case 'facebook': return renderFacebook(p);
+      case 'discord':  return renderDiscord(p);
+      case 'twitter':  return renderTwitter(p);
+      default: return '';
+    }
+  }
+
+  /* ── Build columns ── */
   const flood = document.getElementById('flood');
 
   for (let c = 0; c < NUM_COLS; c++) {
-
-    /* Shuffle posts differently for each column */
     const shuffled = [...POSTS].sort(() => Math.random() - 0.5);
+    const doubled  = [...shuffled, ...shuffled];
 
-    /* Double the list so the loop is seamless */
-    const doubled = [...shuffled, ...shuffled];
-
-    const col = document.createElement('div');
+    const col    = document.createElement('div');
     col.className = 'col';
 
     const stream = document.createElement('div');
     stream.className = 'stream';
 
-    /* Each column scrolls at a slightly different speed */
     const speed = SPEED_BASE + c * 4;
     stream.style.animationDuration = speed + 's';
-
-    /* Alternate columns start mid-way so they're offset */
-    if (c % 2 === 1) {
-      stream.style.animationDelay = '-' + (speed / 2) + 's';
-    }
+    if (c % 2 === 1) stream.style.animationDelay = '-' + (speed / 2) + 's';
 
     doubled.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-head">
-          <div class="avatar" style="background:${p.avc}">${p.av}</div>
-          <div>
-            <div class="card-user">${p.user}</div>
-            <div class="card-plat">${p.plat}</div>
-          </div>
-        </div>
-        <div class="card-body">${p.body}</div>
-        <div class="card-meta">${p.meta}</div>
-      `;
-      stream.appendChild(card);
+      const wrap = document.createElement('div');
+      wrap.innerHTML = renderPost(p);
+      stream.appendChild(wrap.firstElementChild);
     });
 
     col.appendChild(stream);
